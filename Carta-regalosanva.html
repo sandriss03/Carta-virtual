@@ -111,20 +111,16 @@ body{
 }
 
 /* FOLIO */
-.letter{
-  .letter {
-  background: #fffafc;
-  width: 85%;
-  max-width: 600px;
-  padding: 60px 50px;
-  border-radius: 10px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-  position: relative;
+.letter {
+  background: #fffafc;          /* 👈 esto hace el folio blanco */
+  padding: 60px 50px;           /* 👈 espacio interior */
+  border-radius: 12px;          /* 👈 bordes suaves */
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);  /* 👈 sombra del folio */
 
-  max-height: 80vh;   /* 👈 esto es lo importante */
-  overflow-y: auto;   /* 👈 esto permite deslizar */
-  }
+  max-height: 80vh;
+  overflow-y: auto;
 }
+
 
 @keyframes slideUp{
   from{transform:translateX(-50%) translateY(80px); opacity:0;}
