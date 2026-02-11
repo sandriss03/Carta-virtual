@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carta Interactiva Elegante 💌</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Indie+Flower&family=Montserrat:wght@400;600&display=swap');
 
   body {
     margin: 0;
@@ -61,14 +61,21 @@
     transform: scale(1.05);
   }
 
-  .respuesta {
-    background: #ffe6f0;
-    border-radius: 20px;
-    padding: 15px;
-    font-size: 1.1em;
-    min-height: 60px;
+  /* Folio de carta */
+  .folio {
+    background: #fffefc;
+    border: 2px solid #f2e6d9;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    padding: 20px;
     margin-top: 20px;
-    color: #80002c;
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.2em;
+    color: #4b2e2e;
+    min-height: 150px;
+    line-height: 1.6em;
+    text-align: left;
+    white-space: pre-line;
     transition: all 0.3s ease;
   }
 
@@ -83,6 +90,7 @@
   a.video:hover {
     text-decoration: underline;
   }
+
 </style>
 </head>
 <body>
@@ -97,18 +105,37 @@
     <button class="boton-carta" onclick="responder('video')">Un regalito especial</button>
   </div>
 
-  <div class="respuesta" id="respuesta"></div>
+  <div class="folio" id="respuesta"></div>
 </div>
 
 <script>
 function responder(tipo) {
   const resp = document.getElementById("respuesta");
   if(tipo === 'pienso') {
-    resp.innerHTML = "Eres mi persona favorita, me encantas tal como eres 💕";
+    resp.innerHTML = `Mi amor 💕,
+
+Quiero que sepas que eres la persona que ilumina mis días. 
+Cada sonrisa tuya es un regalo que guardo en mi corazón. 
+Me encantas tal como eres, y cada momento contigo es único.
+
+Con todo mi amor,
+Sandra`;
   } else if(tipo === 'recuerdo') {
-    resp.innerHTML = "Recuerdo nuestra primera risa juntos, no paro de sonreír 😏";
+    resp.innerHTML = `Hola cariño 😏,
+
+Recuerdo perfectamente la primera vez que reímos juntos. 
+Ese momento se quedó grabado en mi memoria y no dejo de sonreír cada vez que lo pienso.
+Cada instante contigo se siente como un tesoro que quiero conservar siempre.
+
+Con cariño,
+Sandra`;
   } else if(tipo === 'video') {
-    resp.innerHTML = 'Mira este video que te preparé: <a class="video" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">🎬 Ver video</a>';
+    resp.innerHTML = `Mi vida 💖,
+
+Te preparé un pequeño regalo en video, algo que quería compartir contigo. 
+Espero que te saque una sonrisa y recuerdes cuánto te quiero.
+
+Mira aquí: <a class="video" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">🎬 Ver video</a>`;
   }
 }
 </script>
