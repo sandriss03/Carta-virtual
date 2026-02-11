@@ -112,20 +112,18 @@ body{
 
 /* FOLIO */
 .letter{
-  position:absolute;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  width:270px;
-  background:#fffdf8;
-  padding:25px;
-  border-radius:12px;
-  box-shadow:0 15px 30px rgba(0,0,0,0.2);
-  font-family:'Indie Flower', cursive;
-  font-size:19px;
-  line-height:1.7;
-  display:none;
-  animation:slideUp 1s forwards;
+  .letter {
+  background: #fffafc;
+  width: 85%;
+  max-width: 600px;
+  padding: 60px 50px;
+  border-radius: 10px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  position: relative;
+
+  max-height: 80vh;   /* 👈 esto es lo importante */
+  overflow-y: auto;   /* 👈 esto permite deslizar */
+  }
 }
 
 @keyframes slideUp{
