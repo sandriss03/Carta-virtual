@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carta para mi novio 💌</title>
+<title>Carta Interactiva 💌</title>
 <style>
   body {
     font-family: 'Segoe UI', sans-serif;
@@ -30,10 +30,11 @@
     color: #333;
     font-size: 1.1em;
     line-height: 1.5em;
+    min-height: 80px;
   }
   button {
-    margin-top: 20px;
-    padding: 10px 20px;
+    margin: 10px 5px;
+    padding: 10px 15px;
     font-size: 1em;
     border: none;
     border-radius: 10px;
@@ -45,32 +46,37 @@
   button:hover {
     background-color: #e60039;
   }
+  a.video {
+    display: inline-block;
+    margin-top: 15px;
+    color: #ff4d6d;
+    text-decoration: none;
+    font-weight: bold;
+  }
 </style>
 </head>
 <body>
 
 <div class="carta">
-  <h1>Para mi amor 💖</h1>
-  <p id="texto">Hola cariño, tengo algo que quiero decirte...</p>
-  <button onclick="mostrarMensaje()">Leer más</button>
+  <h1>Hola amor 💖</h1>
+  <p id="mensaje">Elige una pregunta y te responderé:</p>
+  
+  <button onclick="responder('pienso')">¿Qué pienso de ti?</button>
+  <button onclick="responder('recuerdo')">¿Mi recuerdo favorito contigo?</button>
+  <button onclick="responder('video')">¿Un regalito para ti?</button>
+
+  <p id="respuesta"></p>
 </div>
 
 <script>
-  const mensajes = [
-    "Desde que llegaste a mi vida, todo tiene más color.",
-    "Me encanta cómo sonríes, incluso cuando estás enfadado 😏.",
-    "Eres mi persona favorita, y no hay nadie más que pueda ocupar tu lugar.",
-    "Te amo, y quiero que lo sepas hoy, mañana y siempre 💕."
-  ];
-  let indice = 0;
-
-  function mostrarMensaje() {
-    const texto = document.getElementById("texto");
-    if(indice < mensajes.length) {
-      texto.textContent = mensajes[indice];
-      indice++;
-    } else {
-      texto.textContent = "Eso es todo por ahora... pero hay mucho más en mi corazón 💌";
+  function responder(tipo) {
+    const resp = document.getElementById("respuesta");
+    if(tipo === 'pienso') {
+      resp.innerHTML = "Eres la persona que hace que mi día siempre tenga sentido, me encantas tal como eres 💕";
+    } else if(tipo === 'recuerdo') {
+      resp.innerHTML = "Recuerdo la primera vez que reímos juntos, no he parado de sonreír desde entonces 😏";
+    } else if(tipo === 'video') {
+      resp.innerHTML = 'Mira este video que te preparé: <a class="video" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">🎬 Ver video</a>';
     }
   }
 </script>
