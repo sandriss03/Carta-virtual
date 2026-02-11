@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti 💌</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Indie+Flower&family=Montserrat:wght@400;600&display=swap');
+
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ffd6e0,#fff0f5);
+  font-family:'Montserrat',sans-serif;
+  overflow:hidden;
+}
+
+/* CONTENEDOR */
+.container{
+  text-align:center;
+}
+
+/* BOTONES */
+.buttons{
+  margin-bottom:30px;
+}
+
+.buttons button{
+  background:#ffb3c6;
+  border:none;
+  padding:12px 20px;
+  margin:10px;
+  border-radius:20px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.buttons button:hover{
+  background:#ff8fab;
+  transform:scale(1.05);
+}
+
+/* SOBRE */
+.envelope{
+  position:relative;
+  width:300px;
+  height:200px;
+  margin:auto;
+  cursor:pointer;
+  display:none;
+}
+
+.envelope .base{
+  width:100%;
+  height:100%;
+  background:#ff8fab;
+  border-radius:10px;
+  position:absolute;
+}
+
+.envelope .flap{
+  width:100%;
+  height:100%;
+  background:#ffb3c6;
+  position:absolute;
+  clip-path:polygon(0 0, 50% 50%, 100% 0);
+  transform-origin:top;
+  transition:transform 0.6s ease;
+  border-radius:10px;
+}
+
+.envelope.open .flap{
+  transform:rotateX(180deg);
+}
+
+/* FOLIO */
+.letter{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%) translateY(0);
+  width:260px;
+  background:#fffdf8;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+  font-family:'Indie Flower',cursive;
+  font-size:18px;
+  line-height:1.6;
+  display:none;
+  animation:slideUp 0.8s forwards;
+}
+
+@keyframes slideUp{
+  from{transform:translateX(-50%) translateY(60px); opacity:0;}
+  to{transform:translateX(-50%) translateY(-120px); opacity:1;}
+}
+
+/* CORAZONES */
+.heart{
+  position:absolute;
+  color:#ff4d6d;
+  font-size:20px;
+  animation:float 4s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(0); opacity:1;}
+  to{transform:translateY(-800px); opacity:0;}
+}
+
+.video-link{
+  display:block;
+  margin-top:10px;
+  color:#d6336c;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="buttons">
+    <button onclick="showLetter('pienso')">¿Qué pienso de ti?</button>
+    <button onclick="showLetter('recuerdo')">Mi recuerdo favorito</button>
+    <button onclick="showLetter('video')">Tengo algo para ti</button>
+  </div>
+
+  <div class="envelope" id="envelope" onclick="openEnvelope()">
+    <div class="base"></div>
+    <div class="flap"></div>
+    <div class="letter" id="letter"></div>
+  </div>
+
+</div>
+
+<script>
+let currentType = "";
+
+function showLetter(type){
+  currentType = type;
+  document.getElementById("envelope").style.display="block";
+  document.getElementById("letter").style.display="none";
+  document.getElementById("envelope").classList.remove("open");
+}
+
+function openEnvelope(){
+  const envelope = document.getElementById("envelope");
+  const letter = document.getElementById("letter");
+
+  envelope.classList.add("open");
+
+  setTimeout(()=>{
+    letter.style.display="block";
+
+    if(currentType==="pienso"){
+      letter.innerHTML=`Mi amor 💕
+
+Quiero que sepas que eres lo mejor que me ha pasado.
+Tu sonrisa me calma, tu risa me engancha,
+y cada momento contigo es un regalo.
+
+Te quiero más de lo que imaginas.
+
+Con amor,
+Sandra 💌`;
+    }
+
+    if(currentType==="recuerdo"){
+      letter.innerHTML=`Hola vida mía 💖
+
+Nunca olvidaré la primera vez que
+reímos sin parar juntos.
+Ahí supe que eras especial.
+
+Cada recuerdo contigo
+vale oro para mí.
+
+Siempre tuya,
+Sandra`;
+    }
+
+    if(currentType==="video"){
+      letter.innerHTML=`Cariño 💕
+
+Te preparé algo especial.
+Quiero que lo veas y sonrías.
+
+<a class="video-link" href="https://www.youtube.com/" target="_blank">🎬 Haz clic aquí</a>
+
+Te quiero infinito.`;
+    }
+
+    createHearts();
+
+  },600);
+}
+
+function createHearts(){
+  for(let i=0;i<15;i++){
+    let heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{heart.remove();},4000);
+  }
+}
+</script>
+
+</body>
+</html>
