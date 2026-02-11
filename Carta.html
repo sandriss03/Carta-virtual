@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta Interactiva Elegante 💌</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .carta {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 30px 40px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    position: relative;
+  }
+
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5em;
+    color: #ff4d6d;
+    margin-bottom: 20px;
+  }
+
+  .botones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .boton-carta {
+    background: #ffccd5;
+    border-radius: 20px;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    font-weight: 600;
+    color: #80002c;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .boton-carta:hover {
+    background: #ff99aa;
+    transform: scale(1.05);
+  }
+
+  .respuesta {
+    background: #ffe6f0;
+    border-radius: 20px;
+    padding: 15px;
+    font-size: 1.1em;
+    min-height: 60px;
+    margin-top: 20px;
+    color: #80002c;
+    transition: all 0.3s ease;
+  }
+
+  a.video {
+    display: inline-block;
+    margin-top: 10px;
+    color: #80002c;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  a.video:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<div class="carta">
+  <h1>Para mi amor 💖</h1>
+  <p>Haz clic en tu pregunta y descubrirás mi respuesta:</p>
+
+  <div class="botones">
+    <button class="boton-carta" onclick="responder('pienso')">¿Qué pienso de ti?</button>
+    <button class="boton-carta" onclick="responder('recuerdo')">Mi recuerdo favorito contigo</button>
+    <button class="boton-carta" onclick="responder('video')">Un regalito especial</button>
+  </div>
+
+  <div class="respuesta" id="respuesta"></div>
+</div>
+
+<script>
+function responder(tipo) {
+  const resp = document.getElementById("respuesta");
+  if(tipo === 'pienso') {
+    resp.innerHTML = "Eres mi persona favorita, me encantas tal como eres 💕";
+  } else if(tipo === 'recuerdo') {
+    resp.innerHTML = "Recuerdo nuestra primera risa juntos, no paro de sonreír 😏";
+  } else if(tipo === 'video') {
+    resp.innerHTML = 'Mira este video que te preparé: <a class="video" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">🎬 Ver video</a>';
+  }
+}
+</script>
+
+</body>
+</html>
