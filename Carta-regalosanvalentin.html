@@ -79,13 +79,17 @@ body{
 /* SOBRE */
 .envelope{
   position: relative;
-  width:320px;
-  height:210px;
-  margin:auto;
-  cursor:pointer;
-  display:none;
-  perspective:1000px;
+  width: 320px;
+  height: 210px;
+  margin: auto;
+  cursor: pointer;
+  display: none;
+  perspective: 1000px;
   z-index:5;
+
+  display: flex;           /* centra la carta */
+  justify-content: center;
+  align-items: center;
 }
 
 .envelope .base{
@@ -113,11 +117,7 @@ body{
 
 /* FOLIO */
 .letter {
-  position: absolute;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:10;                /* encima del sobre */
+  position: relative;
   width:85%;
   max-width:600px;
 
@@ -126,7 +126,7 @@ body{
   border-radius: 12px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 
-  max-height: 80vh;           /* scroll interno si es larga */
+  max-height: 80vh;
   overflow-y: auto;
 
   display:none;
@@ -138,8 +138,8 @@ body{
 }
 
 @keyframes slideUp{
-  from{transform:translateX(-50%) translateY(80px); opacity:0;}
-  to{transform:translateX(-50%) translateY(-150px); opacity:1;}
+  from{transform: translateY(40px); opacity:0;}
+  to{transform: translateY(0); opacity:1;}
 }
 
 /* CORAZONES */
@@ -167,7 +167,6 @@ body{
   box-shadow:0 8px 20px rgba(0,0,0,0.1);
   z-index:3;
 }
-
 </style>
 </head>
 <body>
@@ -197,7 +196,7 @@ let currentType = "";
 
 function showLetter(type){
   currentType = type;
-  document.getElementById("envelope").style.display="block";
+  document.getElementById("envelope").style.display="flex";
   document.getElementById("letter").style.display="none";
   document.getElementById("envelope").classList.remove("open");
 }
