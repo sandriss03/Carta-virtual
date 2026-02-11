@@ -15,8 +15,8 @@ body{
   justify-content:center;
   align-items:center;
   overflow:hidden;
-  background: linear-gradient(-45deg, #1a1a1a, #2b2b2b, #3a3a3a, #111);
-  background-size: 400% 400%;
+  background: linear-gradient(-45deg, #ffd6e0, #ffeaf4, #fff3e6, #ffc2d1);
+  background-size:400% 400%;
   animation: gradientMove 12s ease infinite;
 }
 
@@ -38,22 +38,21 @@ body{
 }
 
 .buttons button{
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.3);
-  backdrop-filter: blur(10px);
-  padding:14px 28px;
+  background: rgba(255,255,255,0.7);
+  border: none;
+  padding:14px 30px;
   margin:12px;
   border-radius:40px;
   font-family:'Playfair Display', serif;
   font-size:18px;
-  color:white;
+  color:#a4133c;
   cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
   transition:0.3s;
 }
 
 .buttons button:hover{
-  background:white;
-  color:black;
+  background:#ffccd5;
   transform:scale(1.08);
 }
 
@@ -71,7 +70,7 @@ body{
 .envelope .base{
   width:100%;
   height:100%;
-  background:#222;
+  background:#ff8fab;
   border-radius:12px;
   position:absolute;
 }
@@ -79,7 +78,7 @@ body{
 .envelope .flap{
   width:100%;
   height:100%;
-  background:#333;
+  background:#ffc2d1;
   position:absolute;
   clip-path:polygon(0 0, 50% 50%, 100% 0);
   transform-origin:top;
@@ -101,7 +100,7 @@ body{
   background:#fffdf8;
   padding:25px;
   border-radius:12px;
-  box-shadow:0 15px 30px rgba(0,0,0,0.4);
+  box-shadow:0 15px 30px rgba(0,0,0,0.2);
   font-family:'Indie Flower', cursive;
   font-size:19px;
   line-height:1.7;
@@ -117,7 +116,7 @@ body{
 .video-link{
   display:block;
   margin-top:12px;
-  color:black;
+  color:#a4133c;
   font-weight:bold;
   text-decoration:none;
 }
@@ -141,9 +140,9 @@ body{
 <div class="container">
 
   <div class="buttons">
-    <button onclick="showLetter('pienso')">Qué siento por ti</button>
-    <button onclick="showLetter('recuerdo')">Nuestro recuerdo favorito</button>
-    <button onclick="showLetter('video')">Algo solo para ti</button>
+    <button onclick="showLetter('pienso')">Lo que siento por ti</button>
+    <button onclick="showLetter('recuerdo')">Nuestro recuerdo</button>
+    <button onclick="showLetter('video')">Una sorpresa</button>
   </div>
 
   <div class="envelope" id="envelope" onclick="openEnvelope()">
@@ -176,21 +175,22 @@ function openEnvelope(){
     if(currentType==="pienso"){
       letter.innerHTML=`Mi amor 🖤
 
-A veces me cuesta explicar lo que significas para mí.
-Eres calma, eres risa, eres refugio.
-Contigo todo es más fácil y más bonito.
+Quiero que sepas que contigo todo se siente más bonito.
+Tu sonrisa cambia mi día,
+tu forma de ser me calma,
+y lo nuestro es algo que cuido siempre.
 
-Y no cambiaría lo nuestro por nada.`;
+Te quiero muchísimo.`;
     }
 
     if(currentType==="recuerdo"){
       letter.innerHTML=`Hola vida 🖤
 
-Si cierro los ojos, recuerdo ese momento
-en el que todo parecía detenerse
-y solo existíamos tú y yo.
+Ese momento en el que reímos sin parar,
+en el que parecía que el mundo no importaba,
+ese momento es mío para siempre.
 
-Ese recuerdo siempre será mío.`;
+Contigo todo vale más.`;
     }
 
     if(currentType==="video"){
