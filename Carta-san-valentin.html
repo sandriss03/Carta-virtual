@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti 🖤</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Indie+Flower&family=Playfair+Display:wght@500&display=swap');
+
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  background: linear-gradient(-45deg, #1a1a1a, #2b2b2b, #3a3a3a, #111);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.container{
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+
+/* BOTONES */
+.buttons{
+  margin-bottom:40px;
+}
+
+.buttons button{
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  padding:14px 28px;
+  margin:12px;
+  border-radius:40px;
+  font-family:'Playfair Display', serif;
+  font-size:18px;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.buttons button:hover{
+  background:white;
+  color:black;
+  transform:scale(1.08);
+}
+
+/* SOBRE */
+.envelope{
+  position:relative;
+  width:320px;
+  height:210px;
+  margin:auto;
+  cursor:pointer;
+  display:none;
+  perspective:1000px;
+}
+
+.envelope .base{
+  width:100%;
+  height:100%;
+  background:#222;
+  border-radius:12px;
+  position:absolute;
+}
+
+.envelope .flap{
+  width:100%;
+  height:100%;
+  background:#333;
+  position:absolute;
+  clip-path:polygon(0 0, 50% 50%, 100% 0);
+  transform-origin:top;
+  transition:transform 0.8s ease;
+  border-radius:12px;
+}
+
+.envelope.open .flap{
+  transform:rotateX(180deg);
+}
+
+/* FOLIO */
+.letter{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:270px;
+  background:#fffdf8;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.4);
+  font-family:'Indie Flower', cursive;
+  font-size:19px;
+  line-height:1.7;
+  display:none;
+  animation:slideUp 0.9s forwards;
+}
+
+@keyframes slideUp{
+  from{transform:translateX(-50%) translateY(60px); opacity:0;}
+  to{transform:translateX(-50%) translateY(-130px); opacity:1;}
+}
+
+.video-link{
+  display:block;
+  margin-top:12px;
+  color:black;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+/* CORAZONES NEGROS */
+.heart{
+  position:absolute;
+  font-size:22px;
+  animation:float 5s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(0); opacity:1;}
+  to{transform:translateY(-900px); opacity:0;}
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="buttons">
+    <button onclick="showLetter('pienso')">Qué siento por ti</button>
+    <button onclick="showLetter('recuerdo')">Nuestro recuerdo favorito</button>
+    <button onclick="showLetter('video')">Algo solo para ti</button>
+  </div>
+
+  <div class="envelope" id="envelope" onclick="openEnvelope()">
+    <div class="base"></div>
+    <div class="flap"></div>
+    <div class="letter" id="letter"></div>
+  </div>
+
+</div>
+
+<script>
+let currentType = "";
+
+function showLetter(type){
+  currentType = type;
+  document.getElementById("envelope").style.display="block";
+  document.getElementById("letter").style.display="none";
+  document.getElementById("envelope").classList.remove("open");
+}
+
+function openEnvelope(){
+  const envelope = document.getElementById("envelope");
+  const letter = document.getElementById("letter");
+
+  envelope.classList.add("open");
+
+  setTimeout(()=>{
+    letter.style.display="block";
+
+    if(currentType==="pienso"){
+      letter.innerHTML=`Mi amor 🖤
+
+A veces me cuesta explicar lo que significas para mí.
+Eres calma, eres risa, eres refugio.
+Contigo todo es más fácil y más bonito.
+
+Y no cambiaría lo nuestro por nada.`;
+    }
+
+    if(currentType==="recuerdo"){
+      letter.innerHTML=`Hola vida 🖤
+
+Si cierro los ojos, recuerdo ese momento
+en el que todo parecía detenerse
+y solo existíamos tú y yo.
+
+Ese recuerdo siempre será mío.`;
+    }
+
+    if(currentType==="video"){
+      letter.innerHTML=`Cariño 🖤
+
+Te preparé algo especial.
+Quiero que lo veas cuando estés tranquilo
+y pienses en nosotros.
+
+<a class="video-link" href="https://www.youtube.com/" target="_blank">Ver sorpresa 🎬</a>`;
+    }
+
+    createHearts();
+  },700);
+}
+
+function createHearts(){
+  for(let i=0;i<20;i++){
+    let heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="🖤";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},5000);
+  }
+}
+</script>
+
+</body>
+</html>
