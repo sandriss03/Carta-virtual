@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta para mi novio 💌</title>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #ffe6f0, #fff5e6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .carta {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  h1 {
+    color: #ff4d6d;
+  }
+  p {
+    color: #333;
+    font-size: 1.1em;
+    line-height: 1.5em;
+  }
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover {
+    background-color: #e60039;
+  }
+</style>
+</head>
+<body>
+
+<div class="carta">
+  <h1>Para mi amor 💖</h1>
+  <p id="texto">Hola cariño, tengo algo que quiero decirte...</p>
+  <button onclick="mostrarMensaje()">Leer más</button>
+</div>
+
+<script>
+  const mensajes = [
+    "Desde que llegaste a mi vida, todo tiene más color.",
+    "Me encanta cómo sonríes, incluso cuando estás enfadado 😏.",
+    "Eres mi persona favorita, y no hay nadie más que pueda ocupar tu lugar.",
+    "Te amo, y quiero que lo sepas hoy, mañana y siempre 💕."
+  ];
+  let indice = 0;
+
+  function mostrarMensaje() {
+    const texto = document.getElementById("texto");
+    if(indice < mensajes.length) {
+      texto.textContent = mensajes[indice];
+      indice++;
+    } else {
+      texto.textContent = "Eso es todo por ahora... pero hay mucho más en mi corazón 💌";
+    }
+  }
+</script>
+
+</body>
+</html>
