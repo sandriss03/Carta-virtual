@@ -32,7 +32,7 @@
 
 body{
   margin:0;
-  height:100vh;
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -78,13 +78,14 @@ body{
 
 /* SOBRE */
 .envelope{
-  position:relative;
+  position: relative;
   width:320px;
   height:210px;
   margin:auto;
   cursor:pointer;
   display:none;
   perspective:1000px;
+  z-index:5;
 }
 
 .envelope .base{
@@ -112,15 +113,29 @@ body{
 
 /* FOLIO */
 .letter {
-  background: #fffafc;          /* 👈 esto hace el folio blanco */
-  padding: 60px 50px;           /* 👈 espacio interior */
-  border-radius: 12px;          /* 👈 bordes suaves */
-  box-shadow: 0 15px 35px rgba(0,0,0,0.2);  /* 👈 sombra del folio */
+  position: absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;                /* encima del sobre */
+  width:85%;
+  max-width:600px;
 
-  max-height: 80vh;
+  background: #fffafc;
+  padding: 60px 50px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+
+  max-height: 80vh;           /* scroll interno si es larga */
   overflow-y: auto;
-}
 
+  display:none;
+  font-family:'Indie Flower', cursive;
+  font-size:19px;
+  line-height:1.7;
+
+  animation: slideUp 0.9s forwards;
+}
 
 @keyframes slideUp{
   from{transform:translateX(-50%) translateY(80px); opacity:0;}
@@ -139,6 +154,7 @@ body{
   to{transform:translateY(-900px); opacity:0;}
 }
 
+/* BOTÓN VOLVER */
 .back-btn{
   position:fixed;
   bottom:30px;
