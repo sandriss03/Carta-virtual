@@ -8,17 +8,20 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Indie+Flower&family=Playfair+Display:wght@500&display=swap');
 
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
+/* FONDO SEPARADO */
+.background{
+  position:fixed;
+  width:100%;
+  height:100%;
   background: linear-gradient(-45deg, #ffd6e0, #ffeaf4, #fff3e6, #ffc2d1);
   background-size:400% 400%;
   animation: gradientMove 12s ease infinite;
+  z-index:0;
   transition: filter 1s ease;
+}
+
+.background.blur{
+  filter: blur(8px) brightness(0.9);
 }
 
 @keyframes gradientMove{
@@ -27,8 +30,14 @@ body{
   100%{background-position:0% 50%}
 }
 
-.blur{
-  filter: blur(6px) brightness(0.9);
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  font-family:'Playfair Display', serif;
 }
 
 .container{
@@ -51,11 +60,10 @@ body{
 
 .buttons button{
   background: rgba(255,255,255,0.7);
-  border: none;
+  border:none;
   padding:14px 30px;
   margin:12px;
   border-radius:40px;
-  font-family:'Playfair Display', serif;
   font-size:18px;
   color:#a4133c;
   cursor:pointer;
@@ -125,15 +133,7 @@ body{
   to{transform:translateX(-50%) translateY(-150px); opacity:1;}
 }
 
-.video-link{
-  display:block;
-  margin-top:12px;
-  color:#a4133c;
-  font-weight:bold;
-  text-decoration:none;
-}
-
-/* CORAZONES NEGROS */
+/* CORAZONES */
 .heart{
   position:absolute;
   font-size:22px;
@@ -145,7 +145,6 @@ body{
   to{transform:translateY(-900px); opacity:0;}
 }
 
-/* BOTÓN VOLVER */
 .back-btn{
   position:fixed;
   bottom:30px;
@@ -153,15 +152,17 @@ body{
   border:none;
   padding:10px 20px;
   border-radius:30px;
-  font-family:'Playfair Display', serif;
   cursor:pointer;
   display:none;
   box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  z-index:3;
 }
 
 </style>
 </head>
 <body>
+
+<div class="background" id="bg"></div>
 
 <div class="container">
 
@@ -200,38 +201,32 @@ function openEnvelope(){
 
   setTimeout(()=>{
     buttons.classList.add("hide");
-    document.body.classList.add("blur");
+    document.getElementById("bg").classList.add("blur");
 
     letter.style.display="block";
 
     if(currentType==="pienso"){
       letter.innerHTML=`Mi amor 🖤
 
-Contigo todo tiene más sentido.
-Tu forma de mirarme,
-de hablarme,
-de estar.
-
-Eres mi lugar favorito.`;
+Contigo todo es más bonito.
+Eres mi lugar seguro
+y mi sonrisa favorita.`;
     }
 
     if(currentType==="recuerdo"){
       letter.innerHTML=`Hola vida 🖤
 
-Ese momento en el que el mundo desapareció
-y solo existíamos tú y yo…
-lo guardo siempre.
-
-Es nuestro.`;
+Ese momento en el que
+solo existíamos tú y yo…
+es mío para siempre.`;
     }
 
     if(currentType==="video"){
       letter.innerHTML=`Cariño 🖤
 
 Te hice algo especial.
-Quiero que lo veas con calma.
 
-<a class="video-link" href="https://www.youtube.com/" target="_blank">Ver sorpresa 🎬</a>`;
+<a href="https://www.youtube.com/" target="_blank">Ver sorpresa 🎬</a>`;
     }
 
     createHearts();
@@ -254,7 +249,7 @@ function createHearts(){
 
 function reset(){
   document.getElementById("buttons").classList.remove("hide");
-  document.body.classList.remove("blur");
+  document.getElementById("bg").classList.remove("blur");
   document.getElementById("envelope").style.display="none";
   document.getElementById("letter").style.display="none";
   document.getElementById("backBtn").style.display="none";
