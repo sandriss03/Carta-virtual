@@ -8,7 +8,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Indie+Flower&family=Playfair+Display:wght@500&display=swap');
 
-/* FONDO SEPARADO */
+/* FONDO */
 .background{
   position:fixed;
   width:100%;
@@ -86,11 +86,6 @@ body{
   display: none;
   perspective: 1000px;
   z-index:5;
-
-  display: flex;           
-  justify-content: center;  
-  align-items: flex-start;  /* 👈 más arriba verticalmente */
-  padding-top: 20px;        /* 👈 separa del sobre */
 }
 
 .envelope .base{
@@ -116,9 +111,14 @@ body{
   transform:rotateX(180deg);
 }
 
-/* FOLIO */
+/* FOLIO REAL */
 .letter {
-  position: relative;
+  position: fixed;             /* 👈 fijo encima del sobre */
+  top: 50px;                   /* 👈 un poco desde arriba */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
   width: 85%;
   max-width: 600px;
 
@@ -131,16 +131,22 @@ body{
   overflow-y: auto;
 
   display: none;
-  font-family:'Indie Flower', cursive;
-  font-size:19px;
-  line-height:1.7;
+  font-family: 'Indie Flower', cursive;
+  font-size: 19px;
+  line-height: 1.7;
 
   animation: slideUp 0.9s forwards;
+
+  /* 👇 líneas sutiles tipo folio */
+  background-image:
+    linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 100% 25px;
 }
 
+/* Animación aparición */
 @keyframes slideUp{
-  from{transform: translateY(40px); opacity:0;}
-  to{transform: translateY(0); opacity:1;}
+  from{transform: translateX(-50%) translateY(40px); opacity:0;}
+  to{transform: translateX(-50%) translateY(0); opacity:1;}
 }
 
 /* CORAZONES */
@@ -185,8 +191,9 @@ body{
   <div class="envelope" id="envelope" onclick="openEnvelope()">
     <div class="base"></div>
     <div class="flap"></div>
-    <div class="letter" id="letter"></div>
   </div>
+
+  <div class="letter" id="letter"></div> <!-- fuera del sobre para que esté encima -->
 
 </div>
 
@@ -197,7 +204,7 @@ let currentType = "";
 
 function showLetter(type){
   currentType = type;
-  document.getElementById("envelope").style.display="flex";
+  document.getElementById("envelope").style.display="block";
   document.getElementById("letter").style.display="none";
   document.getElementById("envelope").classList.remove("open");
 }
