@@ -18,12 +18,17 @@ body{
   background: linear-gradient(-45deg, #ffd6e0, #ffeaf4, #fff3e6, #ffc2d1);
   background-size:400% 400%;
   animation: gradientMove 12s ease infinite;
+  transition: filter 1s ease;
 }
 
 @keyframes gradientMove{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
+}
+
+.blur{
+  filter: blur(6px) brightness(0.9);
 }
 
 .container{
@@ -35,6 +40,13 @@ body{
 /* BOTONES */
 .buttons{
   margin-bottom:40px;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.buttons.hide{
+  opacity:0;
+  transform:translateY(-20px);
+  pointer-events:none;
 }
 
 .buttons button{
@@ -105,12 +117,12 @@ body{
   font-size:19px;
   line-height:1.7;
   display:none;
-  animation:slideUp 0.9s forwards;
+  animation:slideUp 1s forwards;
 }
 
 @keyframes slideUp{
-  from{transform:translateX(-50%) translateY(60px); opacity:0;}
-  to{transform:translateX(-50%) translateY(-130px); opacity:1;}
+  from{transform:translateX(-50%) translateY(80px); opacity:0;}
+  to{transform:translateX(-50%) translateY(-150px); opacity:1;}
 }
 
 .video-link{
@@ -125,12 +137,26 @@ body{
 .heart{
   position:absolute;
   font-size:22px;
-  animation:float 5s linear infinite;
+  animation:float 6s linear infinite;
 }
 
 @keyframes float{
   from{transform:translateY(0); opacity:1;}
   to{transform:translateY(-900px); opacity:0;}
+}
+
+/* BOTÓN VOLVER */
+.back-btn{
+  position:fixed;
+  bottom:30px;
+  background:white;
+  border:none;
+  padding:10px 20px;
+  border-radius:30px;
+  font-family:'Playfair Display', serif;
+  cursor:pointer;
+  display:none;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
 }
 
 </style>
@@ -139,7 +165,7 @@ body{
 
 <div class="container">
 
-  <div class="buttons">
+  <div class="buttons" id="buttons">
     <button onclick="showLetter('pienso')">Lo que siento por ti</button>
     <button onclick="showLetter('recuerdo')">Nuestro recuerdo</button>
     <button onclick="showLetter('video')">Una sorpresa</button>
@@ -152,6 +178,8 @@ body{
   </div>
 
 </div>
+
+<button class="back-btn" id="backBtn" onclick="reset()">Volver</button>
 
 <script>
 let currentType = "";
@@ -166,57 +194,70 @@ function showLetter(type){
 function openEnvelope(){
   const envelope = document.getElementById("envelope");
   const letter = document.getElementById("letter");
+  const buttons = document.getElementById("buttons");
 
   envelope.classList.add("open");
 
   setTimeout(()=>{
+    buttons.classList.add("hide");
+    document.body.classList.add("blur");
+
     letter.style.display="block";
 
     if(currentType==="pienso"){
       letter.innerHTML=`Mi amor 🖤
 
-Quiero que sepas que contigo todo se siente más bonito.
-Tu sonrisa cambia mi día,
-tu forma de ser me calma,
-y lo nuestro es algo que cuido siempre.
+Contigo todo tiene más sentido.
+Tu forma de mirarme,
+de hablarme,
+de estar.
 
-Te quiero muchísimo.`;
+Eres mi lugar favorito.`;
     }
 
     if(currentType==="recuerdo"){
       letter.innerHTML=`Hola vida 🖤
 
-Ese momento en el que reímos sin parar,
-en el que parecía que el mundo no importaba,
-ese momento es mío para siempre.
+Ese momento en el que el mundo desapareció
+y solo existíamos tú y yo…
+lo guardo siempre.
 
-Contigo todo vale más.`;
+Es nuestro.`;
     }
 
     if(currentType==="video"){
       letter.innerHTML=`Cariño 🖤
 
-Te preparé algo especial.
-Quiero que lo veas cuando estés tranquilo
-y pienses en nosotros.
+Te hice algo especial.
+Quiero que lo veas con calma.
 
 <a class="video-link" href="https://www.youtube.com/" target="_blank">Ver sorpresa 🎬</a>`;
     }
 
     createHearts();
+    document.getElementById("backBtn").style.display="block";
+
   },700);
 }
 
 function createHearts(){
-  for(let i=0;i<20;i++){
+  for(let i=0;i<25;i++){
     let heart=document.createElement("div");
     heart.classList.add("heart");
     heart.innerHTML="🖤";
     heart.style.left=Math.random()*100+"vw";
-    heart.style.animationDuration=(Math.random()*3+3)+"s";
+    heart.style.animationDuration=(Math.random()*3+4)+"s";
     document.body.appendChild(heart);
-    setTimeout(()=>{heart.remove();},5000);
+    setTimeout(()=>{heart.remove();},6000);
   }
+}
+
+function reset(){
+  document.getElementById("buttons").classList.remove("hide");
+  document.body.classList.remove("blur");
+  document.getElementById("envelope").style.display="none";
+  document.getElementById("letter").style.display="none";
+  document.getElementById("backBtn").style.display="none";
 }
 </script>
 
