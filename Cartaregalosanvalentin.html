@@ -87,9 +87,10 @@ body{
   perspective: 1000px;
   z-index:5;
 
-  display: flex;           /* centra la carta */
-  justify-content: center;
-  align-items: center;
+  display: flex;           
+  justify-content: center;  
+  align-items: flex-start;  /* 👈 más arriba verticalmente */
+  padding-top: 20px;        /* 👈 separa del sobre */
 }
 
 .envelope .base{
@@ -118,8 +119,8 @@ body{
 /* FOLIO */
 .letter {
   position: relative;
-  width:85%;
-  max-width:600px;
+  width: 85%;
+  max-width: 600px;
 
   background: #fffafc;
   padding: 60px 50px;
@@ -129,7 +130,7 @@ body{
   max-height: 80vh;
   overflow-y: auto;
 
-  display:none;
+  display: none;
   font-family:'Indie Flower', cursive;
   font-size:19px;
   line-height:1.7;
