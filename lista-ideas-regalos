@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideas para regalos</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #f7f7f7, #dcdcdc);
+    text-align: center;
+    padding: 30px;
+    margin: 0;
+}
+
+h1{
+    color: #1f1f1f;
+    margin-bottom: 5px;
+}
+
+p{
+    color: #666;
+    margin-bottom: 25px;
+}
+
+button{
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #385898;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover{
+    transform: scale(1.03);
+}
+
+.seccion{
+    display: none;
+    max-width: 500px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+input{
+    width: 70%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li{
+    background: #f5f5f5;
+    margin: 8px 0;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+li img{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.borrar{
+    background-color: #c0392b;
+    padding: 6px 10px;
+}
+
+.borrar:hover{
+    background-color: #a93226;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Ideas para regalos</h1>
+<p>Por si alguno se queda sin ideas otra vez.</p>
+
+<button onclick="mostrar('sandra')">Sandra</button>
+<button onclick="mostrar('giovanni')">Giovanni</button>
+
+<div id="sandra" class="seccion">
+
+    <h2>Lista de Sandra</h2>
+
+    <input type="text" id="textoSandra" placeholder="Texto idea">
+    <input type="file" id="imgSandra" accept="image/*">
+    <button onclick="añadirSandra()">Añadir</button>
+
+    <ul id="listaSandra"></ul>
+
+</div>
+
+<div id="giovanni" class="seccion">
+
+    <h2>Lista de Giovanni</h2>
+
+    <input type="text" id="textoGiovanni" placeholder="Texto idea">
+    <input type="file" id="imgGiovanni" accept="image/*">
+    <button onclick="añadirGiovanni()">Añadir</button>
+
+    <ul id="listaGiovanni"></ul>
+
+</div>
+
+<script>
+
+function mostrar(nombre){
+    document.getElementById("sandra").style.display = "none";
+    document.getElementById("giovanni").style.display = "none";
+    document.getElementById(nombre).style.display = "block";
+}
+
+function guardar(){
+    localStorage.setItem("listaSandra", document.getElementById("listaSandra").innerHTML);
+    localStorage.setItem("listaGiovanni", document.getElementById("listaGiovanni").innerHTML);
+}
+
+function cargar(){
+    if(localStorage.getItem("listaSandra")){
+        document.getElementById("listaSandra").innerHTML =
+        localStorage.getItem("listaSandra");
+    }
+
+    if(localStorage.getItem("listaGiovanni")){
+        document.getElementById("listaGiovanni").innerHTML =
+        localStorage.getItem("listaGiovanni");
+    }
+}
+
+function leerImagen(file, callback){
+    let reader = new FileReader();
+    reader.onload = function(e){
+        callback(e.target.result);
+    };
+    reader.readAsDataURL(file);
+}
+
+function añadirSandra(){
+
+    let texto = document.getElementById("textoSandra").value;
+    let file = document.getElementById("imgSandra").files[0];
+
+    if(texto.trim() == "" && !file) return;
+
+    if(file){
+        leerImagen(file, function(img){
+
+            document.getElementById("listaSandra").innerHTML +=
+            "<li><img src='" + img + "'><span>" + texto + "</span>" +
+            "<button class='borrar' onclick='this.parentElement.remove();guardar();'>X</button></li>";
+
+            guardar();
+        });
+    } else {
+        document.getElementById("listaSandra").innerHTML +=
+        "<li><span>" + texto + "</span>" +
+        "<button class='borrar' onclick='this.parentElement.remove();guardar();'>X</button></li>";
+
+        guardar();
+    }
+
+    document.getElementById("textoSandra").value = "";
+    document.getElementById("imgSandra").value = "";
+}
+
+function añadirGiovanni(){
+
+    let texto = document.getElementById("textoGiovanni").value;
+    let file = document.getElementById("imgGiovanni").files[0];
+
+    if(texto.trim() == "" && !file) return;
+
+    if(file){
+        leerImagen(file, function(img){
+
+            document.getElementById("listaGiovanni").innerHTML +=
+            "<li><img src='" + img + "'><span>" + texto + "</span>" +
+            "<button class='borrar' onclick='this.parentElement.remove();guardar();'>X</button></li>";
+
+            guardar();
+        });
+    } else {
+        document.getElementById("listaGiovanni").innerHTML +=
+        "<li><span>" + texto + "</span>" +
+        "<button class='borrar' onclick='this.parentElement.remove();guardar();'>X</button></li>";
+
+        guardar();
+    }
+
+    document.getElementById("textoGiovanni").value = "";
+    document.getElementById("imgGiovanni").value = "";
+}
+
+cargar();
+
+</script>
+
+</body>
+</html>
