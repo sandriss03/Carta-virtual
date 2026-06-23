@@ -3,21 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lista de Regalos</title>
+<title>Nuestra Lista de Deseos</title>
 
 <style>
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
     font-family: Arial, sans-serif;
-    background:#f5f5f5;
+    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+    min-height:100vh;
     text-align:center;
     padding:30px;
+}
+
+h1{
+    color:white;
+    margin-bottom:25px;
+    text-shadow:2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.botones{
+    margin-bottom:25px;
 }
 
 button{
     padding:10px 20px;
     margin:10px;
+    border:none;
+    border-radius:20px;
     cursor:pointer;
+    background:white;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
 }
 
 .seccion{
@@ -25,50 +51,90 @@ button{
     max-width:500px;
     margin:auto;
     background:white;
-    padding:20px;
-    border-radius:10px;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    animation:aparecer 0.3s;
+}
+
+h2{
+    margin-bottom:15px;
 }
 
 input{
     width:70%;
     padding:10px;
+    border:1px solid #ddd;
+    border-radius:10px;
 }
 
 ul{
     list-style:none;
+    margin-top:20px;
     padding:0;
 }
 
 li{
-    background:#ececec;
-    margin:8px 0;
-    padding:10px;
-    border-radius:5px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#f7f7f7;
+    margin:10px 0;
+    padding:12px;
+    border-radius:12px;
+}
+
+.borrar{
+    background:#ff5c5c;
+    color:white;
+    border:none;
+    border-radius:50%;
+    width:30px;
+    height:30px;
+    font-weight:bold;
+}
+
+.borrar:hover{
+    background:#ff3b3b;
+}
+
+@keyframes aparecer{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 </style>
 </head>
+
 <body>
 
-<h1>Lista de Regalos</h1>
+<h1>🎁 Nuestra Lista de Deseos 🎁</h1>
 
-<button onclick="mostrar('sandra')">Sandra</button>
-<button onclick="mostrar('giovanni')">Giovanni</button>
+<div class="botones">
+    <button onclick="mostrar('sandra')">💕 Sandra</button>
+    <button onclick="mostrar('giovanni')">⚽ Giovanni</button>
+</div>
 
 <div id="sandra" class="seccion">
-    <h2>Lista de Sandra</h2>
+    <h2>Lista de Sandra 💕</h2>
 
     <input type="text" id="textoSandra" placeholder="Añadir regalo">
-    <button onclick="agregar('textoSandra','listaSandra')">Añadir</button>
+    <button onclick="agregar('textoSandra','listaSandra','sandra')">Añadir</button>
 
     <ul id="listaSandra"></ul>
 </div>
 
 <div id="giovanni" class="seccion">
-    <h2>Lista de Giovanni</h2>
+    <h2>Lista de Giovanni ⚽</h2>
 
     <input type="text" id="textoGiovanni" placeholder="Añadir regalo">
-    <button onclick="agregar('textoGiovanni','listaGiovanni')">Añadir</button>
+    <button onclick="agregar('textoGiovanni','listaGiovanni','giovanni')">Añadir</button>
 
     <ul id="listaGiovanni"></ul>
 </div>
@@ -77,27 +143,66 @@ li{
 
 function mostrar(persona){
 
-    document.getElementById("sandra").style.display="none";
-    document.getElementById("giovanni").style.display="none";
+    document.getElementById("sandra").style.display = "none";
+    document.getElementById("giovanni").style.display = "none";
 
-    document.getElementById(persona).style.display="block";
+    document.getElementById(persona).style.display = "block";
 }
 
-function agregar(inputId, listaId){
+function guardarLista(clave, listaId){
 
-    let texto = document.getElementById(inputId).value;
+    let elementos = [];
 
-    if(texto.trim() === ""){
+    document.querySelectorAll("#" + listaId + " li span").forEach(item => {
+        elementos.push(item.textContent.replace("🎁 ",""));
+    });
+
+    localStorage.setItem(clave, JSON.stringify(elementos));
+}
+
+function cargarLista(clave, listaId){
+
+    let datos = JSON.parse(localStorage.getItem(clave)) || [];
+
+    datos.forEach(texto => {
+        crearElemento(texto, listaId, clave);
+    });
+}
+
+function crearElemento(texto, listaId, clave){
+
+    let li = document.createElement("li");
+
+    li.innerHTML = `
+        <span>🎁 ${texto}</span>
+        <button class="borrar">✕</button>
+    `;
+
+    li.querySelector(".borrar").addEventListener("click", function(){
+        li.remove();
+        guardarLista(clave, listaId);
+    });
+
+    document.getElementById(listaId).appendChild(li);
+}
+
+function agregar(inputId, listaId, clave){
+
+    let texto = document.getElementById(inputId).value.trim();
+
+    if(texto === ""){
         return;
     }
 
-    let li = document.createElement("li");
-    li.textContent = texto;
+    crearElemento(texto, listaId, clave);
 
-    document.getElementById(listaId).appendChild(li);
+    guardarLista(clave, listaId);
 
     document.getElementById(inputId).value = "";
 }
+
+cargarLista("sandra","listaSandra");
+cargarLista("giovanni","listaGiovanni");
 
 </script>
 
