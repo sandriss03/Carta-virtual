@@ -6,151 +6,97 @@
 <title>Lista de Regalos</title>
 
 <style>
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family: Arial, sans-serif;
-    }
 
-    body{
-        background:#f5f5f5;
-        padding:30px;
-    }
+body{
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    text-align:center;
+    padding:30px;
+}
 
-    .contenedor{
-        max-width:900px;
-        margin:auto;
-    }
+button{
+    padding:10px 20px;
+    margin:10px;
+    cursor:pointer;
+}
 
-    h1{
-        text-align:center;
-        margin-bottom:30px;
-    }
+.seccion{
+    display:none;
+    max-width:500px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
 
-    .secciones{
-        display:flex;
-        gap:20px;
-        flex-wrap:wrap;
-    }
+input{
+    width:70%;
+    padding:10px;
+}
 
-    .caja{
-        flex:1;
-        min-width:300px;
-        background:white;
-        padding:20px;
-        border-radius:10px;
-        box-shadow:0 0 10px rgba(0,0,0,0.1);
-    }
+ul{
+    list-style:none;
+    padding:0;
+}
 
-    h2{
-        margin-bottom:15px;
-    }
+li{
+    background:#ececec;
+    margin:8px 0;
+    padding:10px;
+    border-radius:5px;
+}
 
-    input{
-        width:100%;
-        padding:10px;
-        margin-bottom:10px;
-        border:1px solid #ccc;
-        border-radius:5px;
-    }
-
-    button{
-        width:100%;
-        padding:10px;
-        border:none;
-        background:#333;
-        color:white;
-        border-radius:5px;
-        cursor:pointer;
-    }
-
-    button:hover{
-        background:#555;
-    }
-
-    ul{
-        list-style:none;
-        margin-top:15px;
-    }
-
-    li{
-        background:#f0f0f0;
-        padding:10px;
-        margin-bottom:8px;
-        border-radius:5px;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-    }
-
-    .eliminar{
-        background:red;
-        color:white;
-        border:none;
-        padding:5px 8px;
-        border-radius:4px;
-        cursor:pointer;
-    }
 </style>
 </head>
-
 <body>
 
-<div class="contenedor">
+<h1>Lista de Regalos</h1>
 
-    <h1>Lista de Cosas que Queremos</h1>
+<button onclick="mostrar('sandra')">Sandra</button>
+<button onclick="mostrar('giovanni')">Giovanni</button>
 
-    <div class="secciones">
+<div id="sandra" class="seccion">
+    <h2>Lista de Sandra</h2>
 
-        <div class="caja">
-            <h2>Mis ideas</h2>
+    <input type="text" id="textoSandra" placeholder="Añadir regalo">
+    <button onclick="agregar('textoSandra','listaSandra')">Añadir</button>
 
-            <input type="text" id="miIdea" placeholder="Añadir algo...">
+    <ul id="listaSandra"></ul>
+</div>
 
-            <button onclick="agregar('misDeseos','miIdea')">
-                Añadir
-            </button>
+<div id="giovanni" class="seccion">
+    <h2>Lista de Giovanni</h2>
 
-            <ul id="misDeseos"></ul>
-        </div>
+    <input type="text" id="textoGiovanni" placeholder="Añadir regalo">
+    <button onclick="agregar('textoGiovanni','listaGiovanni')">Añadir</button>
 
-        <div class="caja">
-            <h2>Sus ideas</h2>
-
-            <input type="text" id="suIdea" placeholder="Añadir algo...">
-
-            <button onclick="agregar('susDeseos','suIdea')">
-                Añadir
-            </button>
-
-            <ul id="susDeseos"></ul>
-        </div>
-
-    </div>
-
+    <ul id="listaGiovanni"></ul>
 </div>
 
 <script>
 
-function agregar(listaID, inputID){
+function mostrar(persona){
 
-    const input = document.getElementById(inputID);
-    const texto = input.value.trim();
+    document.getElementById("sandra").style.display="none";
+    document.getElementById("giovanni").style.display="none";
 
-    if(texto === ""){
+    document.getElementById(persona).style.display="block";
+}
+
+function agregar(inputId, listaId){
+
+    let texto = document.getElementById(inputId).value;
+
+    if(texto.trim() === ""){
         return;
     }
 
-    const li = document.createElement("li");
+    let li = document.createElement("li");
+    li.textContent = texto;
 
-    li.innerHTML =
-        texto +
-        '<button class="eliminar" onclick="this.parentElement.remove()">X</button>';
+    document.getElementById(listaId).appendChild(li);
 
-    document.getElementById(listaID).appendChild(li);
-
-    input.value = "";
+    document.getElementById(inputId).value = "";
 }
 
 </script>
