@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideas para regalos</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#e9e9e9;
+    text-align:center;
+    padding:30px;
+}
+
+button{
+    padding:10px 15px;
+    margin:5px;
+    border:none;
+    background:#333;
+    color:white;
+    border-radius:6px;
+}
+
+.seccion{
+    display:none;
+    max-width:500px;
+    margin:20px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+input{
+    width:70%;
+    padding:8px;
+}
+
+ul{
+    list-style:none;
+    padding:0;
+}
+
+li{
+    background:#f2f2f2;
+    margin:10px 0;
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+img{
+    max-width:100%;
+    border-radius:8px;
+}
+
+.borrar{
+    background:#c0392b;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Ideas para regalos</h1>
+
+<button onclick="mostrar('sandra')">Sandra</button>
+<button onclick="mostrar('giovanni')">Giovanni</button>
+
+<div id="sandra" class="seccion">
+    <h2>Sandra</h2>
+
+    <input id="textosandra" placeholder="Añadir idea">
+    <input type="file" id="imgsandra" accept="image/*">
+    <button onclick="add('sandra')">Añadir</button>
+
+    <ul id="listasandra"></ul>
+</div>
+
+<div id="giovanni" class="seccion">
+    <h2>Giovanni</h2>
+
+    <input id="textogiovanni" placeholder="Añadir idea">
+    <input type="file" id="imggiovanni" accept="image/*">
+    <button onclick="add('giovanni')">Añadir</button>
+
+    <ul id="listagiovanni"></ul>
+</div>
+
+<script>
+
+function mostrar(p){
+    document.getElementById("sandra").style.display="none";
+    document.getElementById("giovanni").style.display="none";
+    document.getElementById(p).style.display="block";
+    load(p);
+}
+
+function add(p){
+
+    let texto = document.getElementById("texto"+p).value;
+    let fileInput = document.getElementById("img"+p);
+
+    if(texto=="" && fileInput.files.length==0) return;
+
+    let data = JSON.parse(localStorage.getItem(p)) || [];
+
+    if(fileInput.files.length>0){
+
+        let reader = new FileReader();
+
+        reader.onload = function(e){
+
+            data.push({
+                text: texto,
+                img: e.target.result
+            });
+
+            localStorage.setItem(p, JSON.stringify(data));
+
+            fileInput.value="";
+            document.getElementById("texto"+p).value="";
+
+            load(p);
+        }
+
+        reader.readAsDataURL(fileInput.files[0]);
+
+    } else {
+
+        data.push({
+            text: texto,
+            img: null
+        });
+
+        localStorage.setItem(p, JSON.stringify(data));
+
+        document.getElementById("texto"+p).value="";
+
+        load(p);
+    }
+}
+
+function load(p){
+
+    let list = document.getElementById("lista"+p);
+    list.innerHTML="";
+
+    let data = JSON.parse(localStorage.getItem(p)) || [];
+
+    data.forEach((item,index)=>{
+
+        let li = document.createElement("li");
+
+        let content = "";
+
+        if(item.text) content += "<div>"+item.text+"</div>";
+
+        if(item.img) content += "<img src='"+item.img+"'>";
+
+        li.innerHTML = content + `
+            <button class="borrar" onclick="del('${p}',${index})">X</button>
+        `;
+
+        list.appendChild(li);
+    });
+}
+
+function del(p,i){
+
+    let data = JSON.parse(localStorage.getItem(p)) || [];
+
+    data.splice(i,1);
+
+    localStorage.setItem(p, JSON.stringify(data));
+
+    load(p);
+}
+
+</script>
+
+</body>
+</html>
